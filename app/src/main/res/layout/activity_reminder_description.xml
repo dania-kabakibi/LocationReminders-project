@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- Data item that holds the reminder details -->
+        <variable
+            name="reminderDataItem"
+            type="com.udacity.project4.locationreminders.reminderslist.ReminderDataItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activity_reminder_description"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_large"
+        tools:context=".locationreminders.ReminderDescriptionActivity">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:fontFamily="cursive"
+            android:gravity="center"
+            android:text="@string/reminder_details"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/reminder_title"
+            style="@style/reminder_details_textStyle"
+            android:layout_width="0dp"
+            android:text=""
+            app:layout_constraintBaseline_toBaselineOf="@+id/title_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/title_label" />
+
+        <TextView
+            android:id="@+id/reminder_description"
+            style="@style/reminder_details_textStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintBaseline_toBaselineOf="@+id/description_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/description_label" />
+
+        <TextView
+            android:id="@+id/reminder_location"
+            style="@style/reminder_details_textStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintBaseline_toBaselineOf="@+id/location_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/location_label" />
+
+        <TextView
+            android:id="@+id/reminder_latitude"
+            style="@style/reminder_details_textStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintBaseline_toBaselineOf="@+id/latitube_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/latitube_label" />
+
+        <TextView
+            android:id="@+id/reminder_longitude"
+            style="@style/reminder_details_textStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text=""
+            app:layout_constraintBaseline_toBaselineOf="@+id/logitube_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/logitube_label" />
+
+        <TextView
+            android:id="@+id/title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/title_label"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/description_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/description_label"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_label" />
+
+        <TextView
+            android:id="@+id/location_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/location_label"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_label" />
+
+        <TextView
+            android:id="@+id/latitube_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/latitube_label"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_label" />
+
+        <TextView
+            android:id="@+id/logitube_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/logitube_label"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/latitube_label" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
