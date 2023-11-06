@@ -15,7 +15,7 @@ class FakeDataSource : ReminderDataSource {
 
     override suspend fun getReminders(): Result<List<ReminderDTO>> {
         if (shouldReturnError) {
-            return Result.Error("Reminders not found")
+            return Result.Error("Test exception")
         }
         return Result.Success(reminders.values.toList())
     }
@@ -31,7 +31,7 @@ class FakeDataSource : ReminderDataSource {
         reminders[id]?.let {
             return Result.Success(it)
         }
-        return Result.Error("Reminders not found")
+        return Result.Error("Reminder not found")
     }
 
     override suspend fun deleteAllReminders() {

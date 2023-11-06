@@ -35,7 +35,9 @@ class ReminderListFragment : BaseFragment() {
         setHasOptionsMenu(true)
         setDisplayHomeAsUpEnabled(false)
         setTitle(getString(R.string.app_name))
-        binding.refreshLayout.setOnRefreshListener { _viewModel.loadReminders() }
+        binding.refreshLayout.setOnRefreshListener {
+            _viewModel.loadReminders()
+        }
         return binding.root
     }
 
@@ -62,16 +64,17 @@ class ReminderListFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = RemindersListAdapter {reminder ->
-            startActivity(
-                Intent(requireContext(), ReminderDescriptionActivity::class.java).apply {
-                    putExtra("REMINDER_TITLE", reminder.title)
-                    putExtra("REMINDER_DESCRIPTION", reminder.description)
-                    putExtra("REMINDER_LOCATION", reminder.location)
-                    putExtra("REMINDER_LATITUDE", reminder.latitude)
-                    putExtra("REMINDER_LONGITUDE", reminder.longitude)
-                }
-            )}
+        val adapter = RemindersListAdapter {}
+        /*RemindersListAdapter {reminder ->
+        startActivity(
+            Intent(requireContext(), ReminderDescriptionActivity::class.java).apply {
+                putExtra("REMINDER_TITLE", reminder.title)
+                putExtra("REMINDER_DESCRIPTION", reminder.description)
+                putExtra("REMINDER_LOCATION", reminder.location)
+                putExtra("REMINDER_LATITUDE", reminder.latitude)
+                putExtra("REMINDER_LONGITUDE", reminder.longitude)
+            }
+        )}*/
         // Setup the recycler view using the extension function
         binding.reminderssRecyclerView.setup(adapter)
     }

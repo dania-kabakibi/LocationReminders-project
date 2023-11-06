@@ -40,7 +40,7 @@
             android:id="@+id/reminder_title"
             style="@style/reminder_details_textStyle"
             android:layout_width="0dp"
-            android:text=""
+            android:text="@{reminderDataItem.title}"
             app:layout_constraintBaseline_toBaselineOf="@+id/title_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/title_label" />
@@ -50,7 +50,7 @@
             style="@style/reminder_details_textStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@{reminderDataItem.description}"
             app:layout_constraintBaseline_toBaselineOf="@+id/description_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/description_label" />
@@ -60,7 +60,7 @@
             style="@style/reminder_details_textStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@{reminderDataItem.location}"
             app:layout_constraintBaseline_toBaselineOf="@+id/location_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/location_label" />
@@ -70,7 +70,7 @@
             style="@style/reminder_details_textStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@{reminderDataItem.latitude.toString()}"
             app:layout_constraintBaseline_toBaselineOf="@+id/latitube_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/latitube_label" />
@@ -80,7 +80,7 @@
             style="@style/reminder_details_textStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="@{reminderDataItem.longitude.toString()}"
             app:layout_constraintBaseline_toBaselineOf="@+id/logitube_label"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/logitube_label" />

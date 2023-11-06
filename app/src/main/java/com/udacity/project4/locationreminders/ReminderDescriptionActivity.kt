@@ -35,17 +35,20 @@ class ReminderDescriptionActivity : AppCompatActivity() {
         }
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val layoutId = R.layout.activity_reminder_description
         binding = DataBindingUtil.setContentView(this, layoutId)
 
+        binding.reminderDataItem = intent.getSerializableExtra(EXTRA_ReminderDataItem) as ReminderDataItem
+
         // The implementation of the reminder details
-        binding.reminderTitle.text = intent.extras?.getString("REMINDER_TITLE")
+        /*binding.reminderTitle.text = intent.extras?.getString("REMINDER_TITLE")
         binding.reminderDescription.text = intent.extras?.getString("REMINDER_DESCRIPTION")
         binding.reminderLocation.text = intent.extras?.getString("REMINDER_LOCATION")
         binding.reminderLatitude.text = intent.extras?.getDouble("REMINDER_LATITUDE").toString()
-        binding.reminderLongitude.text = intent.extras?.getDouble("REMINDER_LONGITUDE").toString()
+        binding.reminderLongitude.text = intent.extras?.getDouble("REMINDER_LONGITUDE").toString()*/
     }
 
 }
