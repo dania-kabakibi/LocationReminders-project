@@ -29,7 +29,7 @@ class RemindersActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT > 32) {
             if (!shouldShowRequestPermissionRationale("112")){
-                getNotificationPermission();
+                getNotificationPermission()
             }
         }
     }

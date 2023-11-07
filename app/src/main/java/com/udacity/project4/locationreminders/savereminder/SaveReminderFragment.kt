@@ -138,7 +138,6 @@ class SaveReminderFragment : BaseFragment() {
                 }
             }
         }
-        _viewModel.navigationCommand.value = NavigationCommand.BackTo(R.id.reminderListFragment)
     }
 
     @TargetApi(29)
