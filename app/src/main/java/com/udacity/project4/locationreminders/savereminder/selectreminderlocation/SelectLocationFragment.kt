@@ -40,11 +40,14 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private lateinit var mMap: GoogleMap
+
     //private lateinit var mainHandler: Handler
     //private lateinit var runnable: Runnable
     private val foregroundRequestCode = 22
 
     private var POI: PointOfInterest? = null
+    private var latitude = 0.0
+    private var longitude = 0.0
 
 
     override fun onCreateView(
@@ -76,10 +79,16 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         //  When the user confirms on the selected location,
         //  send back the selected location details to the view model
         //  and navigate back to the previous fragment to save the reminder and add the geofence
-        _viewModel.selectedPOI.value = POI
-        _viewModel.latitude.value = POI!!.latLng.latitude
-        _viewModel.longitude.value = POI!!.latLng.longitude
-        _viewModel.reminderSelectedLocationStr.value = POI!!.name
+        if (POI == null) {
+            _viewModel.latitude.value = latitude
+            _viewModel.longitude.value = longitude
+            _viewModel.reminderSelectedLocationStr.value = "unknown"
+        } else {
+            _viewModel.selectedPOI.value = POI
+            _viewModel.latitude.value = POI!!.latLng.latitude
+            _viewModel.longitude.value = POI!!.latLng.longitude
+            _viewModel.reminderSelectedLocationStr.value = POI!!.name
+        }
     }
 
 
@@ -198,18 +207,19 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     private fun setMapLongClick(map: GoogleMap) {
         map.setOnMapLongClickListener { latLng ->
             // A Snippet is Additional text that's displayed below the title.
+            latitude = latLng.latitude
+            longitude = latLng.longitude
             val snippet = String.format(
                 Locale.getDefault(),
                 "Lat: %1$.5f, Long: %2$.5f",
-                latLng.latitude,
-                latLng.longitude
+                latitude,
+                longitude
             )
             map.addMarker(
                 MarkerOptions()
                     .position(latLng)
                     .title(getString(R.string.dropped_pin))
                     .snippet(snippet)
-
             )
         }
     }
@@ -264,8 +274,8 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         }
     }
 
-   /* override fun onDestroy() {
-        super.onDestroy()
-        mainHandler.removeCallbacks(runnable)
-    }*/
+    /* override fun onDestroy() {
+         super.onDestroy()
+         mainHandler.removeCallbacks(runnable)
+     }*/
 }
