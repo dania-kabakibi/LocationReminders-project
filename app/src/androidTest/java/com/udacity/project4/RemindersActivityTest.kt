@@ -131,7 +131,7 @@ class RemindersActivityTest : AutoCloseKoinTest() {
         onView(withId(R.id.selectLocation)).perform(click())
         onView(withId(R.id.map)).perform(click())
         onView(withId(R.id.save_button)).perform(click())
-        onView(withId(R.id.reminderTitle)).perform(ViewActions.replaceText(null))
+        onView(withId(R.id.reminderTitle)).perform(ViewActions.replaceText(""))
         onView(withId(R.id.saveReminder)).perform(click())
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
@@ -141,7 +141,7 @@ class RemindersActivityTest : AutoCloseKoinTest() {
         onView(withId(R.id.addReminderFAB)).perform(click())
         onView(withId(R.id.selectLocation)).perform(click())
         onView(withId(R.id.save_button)).perform(click())
-        onView(withId(R.id.selectLocation)).perform(ViewActions.replaceText(null))
+        onView(withId(R.id.selectLocation)).perform(ViewActions.replaceText(""))
         onView(withId(R.id.saveReminder)).perform(click())
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
