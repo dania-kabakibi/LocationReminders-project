@@ -36,12 +36,12 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.get
-import org.koin.test.AutoCloseKoinTest
+import org.koin.test.KoinTest
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 //END TO END test to black box test the app
-class RemindersActivityTest : AutoCloseKoinTest() {
+class RemindersActivityTest : KoinTest {
 // Extended Koin Test - embed autoclose @after method to close Koin after every test
 
     private lateinit var repository: ReminderDataSource
@@ -87,6 +87,8 @@ class RemindersActivityTest : AutoCloseKoinTest() {
             repository.deleteAllReminders()
         }
     }
+
+    @After fun stopKoinAfterTest() = stopKoin()
 
     @Before
     fun registerIdlingResource() {
