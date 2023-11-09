@@ -51,7 +51,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    //implementation 'org.hamcrest:hamcrest-library:1.3' //2.2'
+    implementation 'org.hamcrest:hamcrest-library:2.2'
 
     // App dependencies
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
@@ -91,7 +91,6 @@ dependencies {
     testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
     testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
     testImplementation "androidx.test:rules:$androidXTestRulesVersion"
-    testImplementation "org.hamcrest:hamcrest-all:2.2"
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
