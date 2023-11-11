@@ -40,7 +40,7 @@ class RemindersLocalRepositoryTest {
             RemindersDatabase::class.java
         ).build()
 
-        repository = RemindersLocalRepository(database.reminderDao(), Dispatchers.Main)
+        repository = RemindersLocalRepository(database.reminderDao(), Dispatchers.IO)
     }
 
     @After
