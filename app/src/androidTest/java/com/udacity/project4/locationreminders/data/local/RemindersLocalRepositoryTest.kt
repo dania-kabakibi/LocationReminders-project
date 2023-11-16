@@ -82,7 +82,7 @@ class RemindersLocalRepositoryTest {
             -74.1456636786461,
             UUID.randomUUID().toString()
         )
-        repository.saveReminder(reminder)
+        //repository.saveReminder(reminder)
 
         // WHEN - Reminder retrieved by ID.
         val result = repository.getReminder(reminder.id)

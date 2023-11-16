@@ -22,9 +22,49 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_29" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="samsung SM-A507FN" value="120" />
                   <entry key="samsung SM-G930F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-245884860">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-183497635">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-176958440">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -36,7 +76,9 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_29" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
                   <entry key="samsung SM-G930F" value="120" />
                 </map>
               </option>
@@ -49,6 +91,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_29" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="samsung SM-A507FN" value="120" />
                   <entry key="samsung SM-G930F" value="120" />
@@ -77,8 +120,23 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_29" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
                   <entry key="samsung SM-G930F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1191023169">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -93,6 +151,19 @@
                   <entry key="Tests" value="360" />
                   <entry key="samsung SM-A507FN" value="120" />
                   <entry key="samsung SM-G930F" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1697591317">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A507FN" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -119,6 +190,7 @@
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Pixel_2_API_29" value="120" />
                   <entry key="Tests" value="360" />
                   <entry key="samsung SM-G930F" value="120" />
                 </map>

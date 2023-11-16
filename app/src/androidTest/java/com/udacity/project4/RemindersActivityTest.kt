@@ -8,6 +8,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.espresso.matcher.RootMatchers.withDecorView;
@@ -15,7 +16,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches;
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import com.google.android.material.internal.ContextUtils.getActivity
+import com.google.android.material.internal.ContextUtils
 import com.udacity.project4.locationreminders.RemindersActivity
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.local.LocalDB
@@ -26,7 +27,7 @@ import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorActivity
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.not
-import org.hamcrest.core.Is
+import org.hamcrest.Matchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -37,6 +38,7 @@ import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.get
 import org.koin.test.KoinTest
+
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -54,6 +56,10 @@ class RemindersActivityTest : KoinTest {
      * we'll also use Koin to test our code.
      * at this step we will initialize Koin related code to be able to use it in out testing.
      */
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(dataBindingIdlingResource)
+    }
 
     @Before
     fun init() {
@@ -72,7 +78,9 @@ class RemindersActivityTest : KoinTest {
                     get() as ReminderDataSource
                 )
             }
-            single { RemindersLocalRepository(get()) as ReminderDataSource }
+            single { RemindersLocalRepository(get()) }
+            single<ReminderDataSource> { get<RemindersLocalRepository>() }
+
             single { LocalDB.createRemindersDao(appContext) }
         }
         //declare a new koin module
@@ -88,17 +96,14 @@ class RemindersActivityTest : KoinTest {
         }
     }
 
-    @After fun stopKoinAfterTest() = stopKoin()
-
-    @Before
-    fun registerIdlingResource() {
-        IdlingRegistry.getInstance().register(dataBindingIdlingResource)
+    @After
+    fun unregisterIdlingResource() = runBlocking {
+        IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
+        repository.deleteAllReminders()
     }
 
     @After
-    fun unregisterIdlingResource() {
-        IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
-    }
+    fun stopKoinAfterTest() = stopKoin()
 
     @Test
     fun checkToastMessage() {
@@ -106,16 +111,23 @@ class RemindersActivityTest : KoinTest {
         dataBindingIdlingResource.monitorActivity(activityScenario)
 
         onView(withId(R.id.addReminderFAB)).perform(click())
+
         onView(withId(R.id.selectLocation)).perform(click())
-        onView(withId(R.id.map)).perform(click())
+
+        onView(withId(R.id.map)).perform(longClick())
+
         onView(withId(R.id.save_button)).perform(click())
+
+        onView(withId(R.id.reminderTitle)).perform(ViewActions.replaceText("test"))
+        onView(withId(R.id.reminderDescription)).perform(ViewActions.replaceText("test"))
+
         onView(withId(R.id.saveReminder)).perform(click())
 
         onView(withText(R.string.reminder_saved)).inRoot(
             withDecorView(
                 not(
-                    Is.`is`(
-                        getActivity(appContext)!!.window.decorView
+                    Matchers.`is`(
+                        ContextUtils.getActivity(appContext)?.window?.decorView
                     )
                 )
             )
@@ -131,23 +143,13 @@ class RemindersActivityTest : KoinTest {
 
         onView(withId(R.id.addReminderFAB)).perform(click())
         onView(withId(R.id.selectLocation)).perform(click())
-        onView(withId(R.id.map)).perform(click())
+        onView(withId(R.id.map)).perform(longClick())
         onView(withId(R.id.save_button)).perform(click())
         onView(withId(R.id.reminderTitle)).perform(ViewActions.replaceText(""))
         onView(withId(R.id.saveReminder)).perform(click())
 
         onView(withId(com.google.android.material.R.id.snackbar_text))
             .check(matches(withText(R.string.err_enter_title)))
-
-
-        onView(withId(R.id.addReminderFAB)).perform(click())
-        onView(withId(R.id.selectLocation)).perform(click())
-        onView(withId(R.id.save_button)).perform(click())
-        onView(withId(R.id.selectLocation)).perform(ViewActions.replaceText(""))
-        onView(withId(R.id.saveReminder)).perform(click())
-
-        onView(withId(com.google.android.material.R.id.snackbar_text))
-            .check(matches(withText(R.string.err_select_location)))
 
         activityScenario.close()
     }

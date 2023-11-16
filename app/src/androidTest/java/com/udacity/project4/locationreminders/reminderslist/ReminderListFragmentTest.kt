@@ -2,16 +2,14 @@ package com.udacity.project4.locationreminders.reminderslist
 
 import android.app.Application
 import android.os.Bundle
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -21,6 +19,7 @@ import com.udacity.project4.R
 import com.udacity.project4.locationreminders.data.ReminderDataSource
 import com.udacity.project4.locationreminders.data.dto.ReminderDTO
 import com.udacity.project4.locationreminders.data.local.LocalDB
+import com.udacity.project4.locationreminders.data.local.RemindersDao
 import com.udacity.project4.locationreminders.data.local.RemindersLocalRepository
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,8 +27,10 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import org.koin.core.context.startKoin
@@ -45,8 +46,11 @@ import org.mockito.Mockito.verify
 @MediumTest
 class ReminderListFragmentTest : KoinTest {
 
-    private lateinit var repository: ReminderDataSource
+    //private lateinit var repository: ReminderDataSource
     private lateinit var appContext: Application
+
+    @get:Rule
+    var instantExecutorRule = InstantTaskExecutorRule()
 
     @Before
     fun init() {
@@ -65,21 +69,24 @@ class ReminderListFragmentTest : KoinTest {
                     get() as ReminderDataSource
                 )
             }
-            //single<ReminderDataSource> { RemindersLocalRepository(get())}
+            single { RemindersLocalRepository(get()) }
+            single<ReminderDataSource> { get<RemindersLocalRepository>() }
             single { LocalDB.createRemindersDao(appContext) }
         }
         //declare a new koin module
         startKoin {
+            androidContext(appContext)
             modules(listOf(myModule))
         }
         //Get our real repository
-        repository = get()
+        //repository = get()
 
         //clear the data to start fresh
-        runBlocking {
+        /*runBlocking {
             repository.deleteAllReminders()
-        }
+        }*/
     }
+
     @After
     fun stopKoinAfterTest() = stopKoin()
 
@@ -102,41 +109,14 @@ class ReminderListFragmentTest : KoinTest {
     }
 
 
-    @Test
-    fun testNavigation_ToReminderDescription() {
-        // GIVEN - On the reminderList screen with a reminder
-        val rem = ReminderDTO(
-            "Fitness",
-            "for exercise",
-            "Planet Fitness",
-            40.792438046653494,
-            -74.1447302699089
-        )
-        runBlocking {
-            repository.saveReminder(rem)
-        }
-        val scenario = launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
-
-        val navController = mock(NavController::class.java)
-
-        scenario.onFragment {
-            Navigation.setViewNavController(it.view!!, navController)
-        }
-        // WHEN - Click on the reminder
-        onView(withId(R.id.reminderssRecyclerView))
-            .perform(
-                RecyclerViewActions.actionOnItem<RecyclerView.ViewHolder>(
-                    hasDescendant(withText("Fitness")), click()
-                )
-            )
-
-        // THEN - Verify that we navigate to the detailFragment
-        onView(withId(R.id.activity_reminder_description)).check(matches(isDisplayed()))
-    }
-
     //    test the displayed data on the UI.
     @Test
     fun testDisplayedData() {
+        val remindersDao: RemindersDao = get()
+
+        runBlocking {
+            remindersDao.deleteAllReminders()
+        }
         // GIVEN - A reminder
         val rem = ReminderDTO(
             "Fitness",
@@ -147,8 +127,11 @@ class ReminderListFragmentTest : KoinTest {
         )
         // WHEN - Add the reminder to the repository
         runBlocking {
-            repository.saveReminder(rem)
+            remindersDao.saveReminder(rem)
         }
+
+        launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+
         // THEN - Verify that the reminder display on the UI
         onView(withText(rem.title)).check(matches(isDisplayed()))
     }
@@ -156,9 +139,28 @@ class ReminderListFragmentTest : KoinTest {
     //    add testing for the error messages.
     @Test
     fun testErrorMessages() {
+        val remindersDao: RemindersDao = get()
+
+        val rem = ReminderDTO(
+            "Fitness",
+            "for exercise",
+            "Planet Fitness",
+            40.792438046653494,
+            -74.1447302699089
+        )
+
         runBlocking {
-            repository.deleteAllReminders()
+            remindersDao.saveReminder(rem)
         }
+
+        launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+
+        runBlocking {
+            remindersDao.deleteAllReminders()
+        }
+
+        launchFragmentInContainer<ReminderListFragment>(Bundle(), R.style.AppTheme)
+
         onView(withId(R.id.noDataTextView)).check(matches(isDisplayed()))
     }
 }

@@ -131,7 +131,8 @@ class SaveReminderFragment : BaseFragment() {
 
             geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
                 addOnSuccessListener {
-                    _viewModel.saveReminder(reminder)
+                    //_viewModel.saveReminder(reminder)
+                    _viewModel.validateAndSaveReminder(reminder)
                 }
                 addOnFailureListener {
                     /*Toast.makeText(requireContext(), "Failed to add geofence", Toast.LENGTH_SHORT)
@@ -228,7 +229,7 @@ class SaveReminderFragment : BaseFragment() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_TURN_DEVICE_LOCATION_ON){
+        if (requestCode == REQUEST_TURN_DEVICE_LOCATION_ON) {
             addGeofenceForClue(rem)
         }
     }
