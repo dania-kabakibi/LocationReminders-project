@@ -1,6 +1,7 @@
 package com.udacity.project4.authentication
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -105,7 +106,8 @@ class AuthenticationActivity : AppCompatActivity() {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     binding.loginButton.text = "Open"
                     binding.loginButton.setOnClickListener {
-                        startActivity(Intent(this, RemindersActivity::class.java))
+                        /*startActivity(Intent(this, RemindersActivity::class.java))*/
+                        startActivity<RemindersActivity>()
                         finish()
                     }
                 }
@@ -115,5 +117,13 @@ class AuthenticationActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    /** With reified type parameters, we can easily define an extension function like this:
+     * We also defined an explicit reified type parameter bound to make sure that we can only use
+     * Activity (and its subclasses) as the type argument.*/
+    inline fun <reified T : Activity> Context.startActivity() {
+        val intent = Intent(this, T::class.java)
+        startActivity(intent)
     }
 }
